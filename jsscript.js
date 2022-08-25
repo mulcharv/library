@@ -1,26 +1,26 @@
-const cardscontainer = document.getElementById("cardscontainer");
 
 let myLibrary = [];
+newbook = document.getElementById("newbook");
+cardscontainer = document.getElementById("cardscontainer");
+newbookcontainer = document.getElementById('newbookcontainer');
 
 
-function Book(title, author, pages, status) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.status = status 
-}
-
-addBookToLibrary.prototype = Object.create(Book.prototype)
-
-function addBookToLibrary(title, author, pages, status) {
-    info = new Book(title, author, pages, status);
-    myLibrary.push(info);
-}
-
-function displayLibrary (myLibrary) {
+class Book {
+    constructor(title, author, pages, status)  {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.status = status;
+}}
 
 
-    for (x=0; x < myLibrary.length; ++x) {
+class displayLibrary {
+
+    constructor() {}
+
+    createCard () {
+
+    for (var x=0; x < myLibrary.length; ++x) {
 
 
     let card = document.createElement("div");
@@ -69,12 +69,15 @@ function displayLibrary (myLibrary) {
             e.target.textContent = 'Read'}
         })
         
-    }}
+    }}}
 
 
 
-newbook = document.getElementById("newbook");
-newbook.addEventListener('click', (e) => {
+
+class addbook {
+    constructor() {}
+
+    newform() {
 
     if (!document.forms[0]) {
 
@@ -146,20 +149,15 @@ newbook.addEventListener('click', (e) => {
     bookform.appendChild(formsubmit);
     bookformcontainer.appendChild(bookform);
     newbookcontainer.appendChild(bookformcontainer);
-    document.body.appendChild(bookformcontainer);
 
-    newbookcontainer = document.getElementById('newbookcontainer');
-    newbookcontainer.appendChild(bookformcontainer);
 
     
 
 
-        formsubmit.addEventListener('click', function handlesubmit(e) {
+        formsubmit.addEventListener('click', (e) => {
 
             e.preventDefault();
 
-
-            handlesubmit.prototype = Object.create(addBookToLibrary.prototype)
 
             let readornot;
 
@@ -173,9 +171,11 @@ newbook.addEventListener('click', (e) => {
 
             if (bookform.reportValidity() == true) {
 
-            addBookToLibrary(formtitle.value, formauthor.value, formpages.value, readornot);
+            let info = new Book(formtitle.value, formauthor.value, formpages.value, readornot);
+            myLibrary.push(info);
 
-            displayLibrary(myLibrary);
+            let display = new displayLibrary();
+            display.createCard();
 
             bookform.reset();
 
@@ -185,5 +185,10 @@ newbook.addEventListener('click', (e) => {
 
     })
 
-}})
+}}}
 
+
+let addnew = new addbook();
+newbook.addEventListener('click', () => {
+    addnew.newform()
+}, false);
